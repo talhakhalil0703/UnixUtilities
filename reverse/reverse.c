@@ -50,12 +50,12 @@ static void _freeWithExitCode(int rc){
 }
 
 /**
- * open_file - opens the file with the given filename and mode
- * @param file_name: the name of the file to be opened
+ * _openFile - opens the file with the given filename and mode
+ * @param file_name: the path of the file to be opened
  * @param opt: the mode in which to open the file (e.g. "r" for read)
  * @return filestream
 */
-static FILE * open_file(char * file_name, char * opt){
+static FILE * _openFile(char * file_name, char * opt){
     FILE * input_file = fopen(file_name, opt);
     if (input_file == NULL){
         fprintf(stderr, "reverse: cannot open file '%s'\n", file_name);
@@ -178,11 +178,11 @@ int main (int argc, char*argv[]) {
         case 1:
             break;
         case 2:
-            input_stream = open_file(argv[1], "r");
+            input_stream = _openFile(argv[1], "r");
             break;
         case 3:
-            input_stream = open_file(argv[1], "r");
-            output_stream = open_file(argv[2], "w");
+            input_stream = _openFile(argv[1], "r");
+            output_stream = _openFile(argv[2], "w");
             _ensureInputOutputAreNotEqual(argv);
             break;
         default:
