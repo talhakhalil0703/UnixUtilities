@@ -18,6 +18,9 @@ static Node *tail_pointer = NULL;
 static FILE * input_stream = NULL;
 static FILE * output_stream = NULL;
 
+/**
+ * _freeNodes - Free up all nodes in linked list
+ */
 static void _freeNodes(){
     Node * free_pointer = tail_pointer;
     if (head_pointer !=  NULL) {
@@ -30,6 +33,11 @@ static void _freeNodes(){
     }
 }
 
+/**
+ * _freeWithExitCode - frees resources before program exit
+ *
+ * @param rc: exit code to return when the function is done
+ */
 static void _freeWithExitCode(int rc){
     if (input_stream != NULL && input_stream != stdin) {
         fclose(input_stream);
@@ -41,6 +49,12 @@ static void _freeWithExitCode(int rc){
     exit(rc);
 }
 
+/**
+ * open_file - opens the file with the given filename and mode
+ * @param file_name: the name of the file to be opened
+ * @param opt: the mode in which to open the file (e.g. "r" for read)
+ * @return filestream
+*/
 static FILE * open_file(char * file_name, char * opt){
     FILE * input_file = fopen(file_name, opt);
     if (input_file == NULL){
@@ -50,6 +64,14 @@ static FILE * open_file(char * file_name, char * opt){
     return input_file;
 }
 
+/**
+ * _reverseList - reverses the linked list
+ * 
+ * This function reverses the linked list by manipulating the
+ * next and previous pointers of each node. The tail_pointer is
+ * set to the original head_pointer and the head_pointer is set
+ * to the original tail_pointer after the reversal.
+*/
 static void _reverseList(){
     Node * previous_reference = NULL;
     Node * current = head_pointer;
@@ -65,6 +87,10 @@ static void _reverseList(){
     head_pointer = previous_reference;
 }
 
+/**
+ * _writeNodesToStream - writes nodes to specified stream
+ * @param file: pointer to output stream
+ */
 static void _writeNodesToStream(FILE * file){
     Node * free_pointer = head_pointer;
     while(free_pointer != NULL){
@@ -73,6 +99,11 @@ static void _writeNodesToStream(FILE * file){
     }
 }
 
+
+/**
+ * _readInputFromStream - reads input from stream and stores it in a linked list
+ * @param input_file: input file stream to read data from
+ */
 static void _readInputFromStream(FILE * input_file){
     char *line = NULL;
     size_t len = 0;
@@ -113,6 +144,11 @@ static void _readInputFromStream(FILE * input_file){
     free(line);
 }
 
+/**
+ * _ensureInputOutputAreNotEqual - Check if input and output files are not the same
+ * 
+ * @param argv - command line arguments array
+ */
 static void _ensureInputOutputAreNotEqual(char* argv[]) {
     struct stat file_one_info;
     struct stat file_two_info;
