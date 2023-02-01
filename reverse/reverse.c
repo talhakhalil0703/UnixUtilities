@@ -121,7 +121,7 @@ static void _readInputFromStream(FILE * input_file){
             printf("reverse: malloc failed");
             _freeWithExitCode(1);
         }
-        
+
         new_node->data = malloc(sizeof(char)*len);
         if (errno == ENOMEM) {
             printf("reverse: malloc failed");
