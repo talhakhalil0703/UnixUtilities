@@ -117,6 +117,10 @@ static void _readInputFromStream(FILE * input_file){
         }
 
         Node * new_node = malloc(sizeof(Node));
+        new_node->data = NULL;
+        new_node->length = 0;
+        new_node->next = NULL;
+        new_node->previous = NULL;
         if (errno == ENOMEM) {
             printf("reverse: malloc failed");
             _freeWithExitCode(1);
